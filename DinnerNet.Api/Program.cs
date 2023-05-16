@@ -1,12 +1,12 @@
-using DinnerNet.Application.Services.Authentication;
+using DinnerNet.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    // Add services to the container.
 
     builder.Services.AddControllers();
-    builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+    builder.Services.AddApplication();
 }
-// Add services to the container.
 
 
 var app = builder.Build();
