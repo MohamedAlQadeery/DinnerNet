@@ -1,11 +1,12 @@
 using DinnerNet.Application;
+using DinnerNet.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
 
     builder.Services.AddControllers();
-    builder.Services.AddApplication();
+    builder.Services.AddApplication().AddInfrastructure(builder.Configuration);
 }
 
 

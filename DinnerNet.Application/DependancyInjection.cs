@@ -6,9 +6,9 @@ namespace DinnerNet.Application;
 public static class DependancyInjection
 {
 
-    public static IServiceCollection AddApplication(this IServiceCollection service)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        service.AddScoped<IAuthenticationService, AuthenticationService>();
-        return service;
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
+        return services;
     }
 }
