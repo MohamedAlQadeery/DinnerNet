@@ -40,7 +40,6 @@ POST {{host}}/auth/register
     "firstName":"Mohamed",
     "lastName":"AlQadeery",
     "email":"mohamed@gmail.com",
-    "password":"password123",
     "token":"eyJhb...1NiIsInR5cCI6Ik"
 }
 ```
@@ -55,7 +54,6 @@ POST {{host}}/auth/login
 #### Login Request
 ```json
 {
-  
     "email":"mohamed@gmail.com",
     "password":"password123"
 }
@@ -72,7 +70,6 @@ POST {{host}}/auth/login
     "firstName":"Mohamed",
     "lastName":"AlQadeery",
     "email":"mohamed@gmail.com",
-    "password":"password123",
     "token":"eyJhb...1NiIsInR5cCI6Ik"
 }
 ```
