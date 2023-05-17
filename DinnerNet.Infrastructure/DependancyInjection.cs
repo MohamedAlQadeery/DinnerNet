@@ -1,6 +1,8 @@
 
-using DinnerNet.Application.Common.Interfaces;
+using DinnerNet.Application.Common.Interfaces.Authentication;
+using DinnerNet.Application.Common.Interfaces.Repositories;
 using DinnerNet.Infrastructure.Authentication;
+using DinnerNet.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +15,7 @@ public static class DependancyInjection
      ConfigurationManager configuration)
     {
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         return services;
     }
