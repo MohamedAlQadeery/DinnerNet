@@ -1,3 +1,4 @@
+using DinnerNet.Api.Middlewares;
 using DinnerNet.Application;
 using DinnerNet.Infrastructure;
 
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+    app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseHttpsRedirection();
 
     app.MapControllers();
