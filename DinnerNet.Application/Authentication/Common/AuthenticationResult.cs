@@ -1,5 +1,5 @@
 using DinnerNet.Domain.Entities;
 
-namespace DinnerNet.Application.Services.Authentication;
+namespace DinnerNet.Application.Authentication.Common;
 
 public record AuthenticationResult(User User, string Token);

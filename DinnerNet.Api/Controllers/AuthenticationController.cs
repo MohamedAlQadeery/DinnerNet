@@ -1,28 +1,30 @@
-using DinnerNet.Application.Services.Authentication;
+using DinnerNet.Application.Authentication.Commands;
+using DinnerNet.Application.Authentication.Common;
+using DinnerNet.Application.Authentication.Queries;
 using DinnerNet.Contracts.Authentication;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace DinnerNet.Api.Controllers;
 
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly ISender _mediator;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(ISender mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [HttpPost("register")]
 
-    public IActionResult Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var result = _authenticationService.Register(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.Password);
+        var registerCommand = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+
+        var result = await _mediator.Send(registerCommand);
+
 
         return result.Match(
               result => Ok(MapAuthenticationResponse(result)),
@@ -34,9 +36,11 @@ public class AuthenticationController : ApiController
 
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var result = _authenticationService.Login(request.Email, request.Password);
+
+        var loginQuery = new LoginQuery(request.Email, request.Password);
+        var result = await _mediator.Send(loginQuery);
 
 
 
