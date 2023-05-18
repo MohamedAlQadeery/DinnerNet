@@ -1,6 +1,8 @@
+using DinnerNet.Api.Common.Errors;
 using DinnerNet.Api.Middlewares;
 using DinnerNet.Application;
 using DinnerNet.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddControllers();
     builder.Services.AddApplication().AddInfrastructure(builder.Configuration);
+    builder.Services.AddSingleton<ProblemDetailsFactory, DinnerDefaultProblemFactory>();
 }
 
 
