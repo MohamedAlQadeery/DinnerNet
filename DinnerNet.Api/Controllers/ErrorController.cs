@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DinnerNet.Api.Controllers;
 
-public class ErrorController : ControllerBase
+public class ErrorController : ApiController
 {
     // [Route("/error")]
     // public IActionResult Error()

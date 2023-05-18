@@ -1,11 +1,11 @@
 using DinnerNet.Application.Services.Authentication;
 using DinnerNet.Contracts.Authentication;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 namespace DinnerNet.Api.Controllers;
 
-[ApiController]
 [Route("auth")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController : ApiController
 {
     private readonly IAuthenticationService _authenticationService;
 
@@ -18,16 +18,20 @@ public class AuthenticationController : ControllerBase
 
     public IActionResult Register([FromBody] RegisterRequest request)
     {
-        var result = _authenticationService.Register(request.FirstName, request.LastName, request.Email, request.Password);
+        var result = _authenticationService.Register(
+            request.FirstName,
+            request.LastName,
+            request.Email,
+            request.Password);
 
-        var response = new AuthenticationResponse
-        (result.User.Id,
-         result.User.FirstName,
-         result.User.LastName,
-         result.User.Email,
-         result.Token);
-        return Ok(response);
+        return result.Match(
+              result => Ok(MapAuthenticationResponse(result)),
+              errors => Problem(errors)
+          );
+
     }
+
+
 
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest request)
@@ -35,13 +39,21 @@ public class AuthenticationController : ControllerBase
         var result = _authenticationService.Login(request.Email, request.Password);
 
 
-        var response = new AuthenticationResponse
+
+        return result.Match(
+            result => Ok(MapAuthenticationResponse(result)),
+            errors => Problem(errors)
+        );
+    }
+
+
+    private static AuthenticationResponse MapAuthenticationResponse(AuthenticationResult result)
+    {
+        return new AuthenticationResponse
         (result.User.Id,
          result.User.FirstName,
          result.User.LastName,
          result.User.Email,
          result.Token);
-
-        return Ok(response);
     }
 }

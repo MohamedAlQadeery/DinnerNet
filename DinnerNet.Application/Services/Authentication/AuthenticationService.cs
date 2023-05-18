@@ -1,6 +1,8 @@
 using DinnerNet.Application.Common.Interfaces.Authentication;
 using DinnerNet.Application.Common.Interfaces.Repositories;
 using DinnerNet.Domain.Entities;
+using ErrorOr;
+using DinnerNet.Domain.Common.Errors;
 
 namespace DinnerNet.Application.Services.Authentication;
 
@@ -16,18 +18,18 @@ public class AuthenticationService : IAuthenticationService
         _jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    public AuthenticationResult Login(string email, string password)
+    public ErrorOr<AuthenticationResult> Login(string email, string password)
     {
         //Check if user exists in database
         if (_userRepository.GetUserByEmail(email) is not User user)
         {
-            throw new Exception("User with given email does not exist.");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         //Check if password is correct
         if (user.Password != password)
         {
-            throw new Exception("Invalid password.");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         // Generate token
@@ -37,12 +39,12 @@ public class AuthenticationService : IAuthenticationService
         return new AuthenticationResult(user, token);
     }
 
-    public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+    public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
     {
         //Check if user exists in database
         if (_userRepository.GetUserByEmail(email) is not null)
         {
-            throw new Exception("User with given email already exists.");
+            return Errors.User.DuplicateEmail;
         }
 
         //Create user
