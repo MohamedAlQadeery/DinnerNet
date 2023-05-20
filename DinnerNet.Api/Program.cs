@@ -1,3 +1,4 @@
+using DinnerNet.Api;
 using DinnerNet.Api.Common.Errors;
 using DinnerNet.Api.Middlewares;
 using DinnerNet.Application;
@@ -8,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
 
-    builder.Services.AddControllers();
-    builder.Services.AddApplication().AddInfrastructure(builder.Configuration);
-    builder.Services.AddSingleton<ProblemDetailsFactory, DinnerDefaultProblemFactory>();
+    builder.Services
+    .AddPresentaion()
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 }
 
 

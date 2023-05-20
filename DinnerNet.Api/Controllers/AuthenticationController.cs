@@ -3,6 +3,7 @@ using DinnerNet.Application.Authentication.Common;
 using DinnerNet.Application.Authentication.Queries;
 using DinnerNet.Contracts.Authentication;
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace DinnerNet.Api.Controllers;
@@ -11,9 +12,11 @@ namespace DinnerNet.Api.Controllers;
 public class AuthenticationController : ApiController
 {
     private readonly ISender _mediator;
+    private readonly IMapper _mapper;
 
-    public AuthenticationController(ISender mediator)
+    public AuthenticationController(ISender mediator, IMapper mapper)
     {
+        _mapper = mapper;
         _mediator = mediator;
     }
 
@@ -21,13 +24,13 @@ public class AuthenticationController : ApiController
 
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var registerCommand = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
 
-        var result = await _mediator.Send(registerCommand);
+        var registerCommand = _mapper.Map<RegisterCommand>(request);
+        var registerResult = await _mediator.Send(registerCommand);
 
 
-        return result.Match(
-              result => Ok(MapAuthenticationResponse(result)),
+        return registerResult.Match(
+              result => Ok(_mapper.Map<AuthenticationResponse>(result)),
               errors => Problem(errors)
           );
 
@@ -40,24 +43,16 @@ public class AuthenticationController : ApiController
     {
 
         var loginQuery = new LoginQuery(request.Email, request.Password);
-        var result = await _mediator.Send(loginQuery);
+        var loginResult = await _mediator.Send(loginQuery);
 
 
 
-        return result.Match(
-            result => Ok(MapAuthenticationResponse(result)),
+        return loginResult.Match(
+            result => Ok(_mapper.Map<AuthenticationResponse>(result)),
             errors => Problem(errors)
         );
     }
 
 
-    private static AuthenticationResponse MapAuthenticationResponse(AuthenticationResult result)
-    {
-        return new AuthenticationResponse
-        (result.User.Id,
-         result.User.FirstName,
-         result.User.LastName,
-         result.User.Email,
-         result.Token);
-    }
+
 }
