@@ -14,6 +14,7 @@ public static class DependancyInjection
         services.AddControllers();
         services.AddSingleton<ProblemDetailsFactory, DinnerDefaultProblemFactory>();
 
+
         return services;
     }
 }
