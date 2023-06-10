@@ -14,8 +14,8 @@ public sealed class Reservation : AggregateRoot<ReservationId>
     public DateTime ReservationDateTime { get; }
     public ReservationStatus Status { get; }
 
-    public GuestId GuestId { get; set; }
-    public BillId BillId { get; set; }
+    public GuestId GuestId { get; }
+    public BillId BillId { get; }
     public DateTime? ArrivalDateTime { get; }
 
     public DateTime CreatedDateTime { get; }
