@@ -1,0 +1,27 @@
+using DinnerNet.Domain.Common.Models;
+
+namespace DinnerNet.Domain.Common.ValueObjects;
+
+public sealed class Price : ValueObject
+{
+    public decimal Value { get; set; }
+    public string Currency { get; set; }
+
+    private Price(decimal value, string currency)
+    {
+        Value = value;
+        Currency = currency;
+    }
+
+
+    public static Price Create(decimal value, string currency)
+    {
+        return new Price(value, currency);
+    }
+
+    public override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Value;
+        yield return Currency;
+    }
+}
