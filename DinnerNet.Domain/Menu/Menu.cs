@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DinnerNet.Domain.Common.Models;
+using DinnerNet.Domain.Common.ValueObjects;
 using DinnerNet.Domain.Dinner.ValueObjects;
 using DinnerNet.Domain.Host.ValueObjects;
 using DinnerNet.Domain.Menu.Entities;
@@ -17,7 +18,7 @@ public sealed class Menu : AggregateRoot<MenuId>
     public string Name { get; }
     public string Description { get; }
 
-    public double AverageRating { get; }
+    public AverageRating AverageRating { get; }
 
     public HostId HostId { get; set; }
 
@@ -30,27 +31,30 @@ public sealed class Menu : AggregateRoot<MenuId>
 
 
     private Menu(
-        MenuId menuId,
+        MenuId id,
+        HostId hostId,
         string name,
         string description,
-        double averageRating,
-        List<MenuSection> sections) : base(menuId)
+        AverageRating averageRating,
+        List<MenuSection> sections) : base(id)
     {
+        HostId = hostId;
         Name = name;
         Description = description;
         AverageRating = averageRating;
         _sections = sections;
     }
 
-
     public static Menu Create(
+        HostId hostId,
         string name,
         string description,
-        double averageRating,
+        AverageRating averageRating,
         List<MenuSection>? sections = null)
     {
         return new Menu(
             MenuId.CreateUnique(),
+            hostId,
             name,
             description,
             averageRating,
