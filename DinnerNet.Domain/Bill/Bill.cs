@@ -18,7 +18,7 @@ public sealed class Bill : AggregateRoot<BillId>
 
     public DateTime CreatedDateTime { get; }
 
-    public DateTime UpdatedDateTime { get; set; }
+    public DateTime UpdatedDateTime { get; }
 
     private Bill(
         DinnerId dinnerId,
