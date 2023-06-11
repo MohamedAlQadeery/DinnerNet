@@ -36,14 +36,12 @@ class Dinner
             "id": "00000000-0000-0000-0000-000000000000",
             "guestCount": 2,
             "reservationDateTime": "2020-01-01T00:00:00.0000000Z",
-            "arrivalDateTime": "2020-01-01T00:00:00.0000000Z",
             "reservationStatus": "Reserved", // PendingGuestConfirmation, Reserved, Cancelled
             "guestId": "00000000-0000-0000-0000-000000000000",
-            "billId": "00000000-0000-0000-0000-000000000000",
+            "billId": "00000000-0000-0000-0000-000000000000"
         }
     ],
     "createdDateTime": "2020-01-01T00:00:00.0000000Z",
-    "updatedDateTime": "2020-01-01T00:00:00.0000000Z",
-    "imageUrl": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    "updatedDateTime": "2020-01-01T00:00:00.0000000Z"
 }
 ```
