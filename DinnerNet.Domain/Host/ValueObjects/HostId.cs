@@ -1,21 +1,32 @@
 using DinnerNet.Domain.Common.Models;
+using DinnerNet.Domain.User.ValueObjects;
 
 namespace DinnerNet.Domain.Host.ValueObjects;
 
 public sealed class HostId : ValueObject
 {
-    public Guid Value { get; }
+    public string Value { get; }
 
-
-    private HostId(Guid value)
+    public HostId(UserId userId)
     {
-        Value = value;
+        Value = $"Host_{userId.Value}";
     }
 
-    public static HostId CreateUnique()
+    public HostId(string userId)
     {
-        return new HostId(Guid.NewGuid());
+        Value = userId;
     }
+
+    public static HostId Create(UserId userId)
+    {
+        return new HostId(userId);
+    }
+
+    public static HostId Create(string userId)
+    {
+        return new HostId(userId);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
