@@ -20,9 +20,17 @@ public static class DependancyInjection
            ConfigurationManager configuration)
     {
         services.AddAuth(configuration);
+        services.AddRepositories();
 
+
+        return services;
+    }
+
+
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
         services.AddScoped<IUserRepository, UserRepository>();
-
+        services.AddScoped<IMenuRepository, MenuInMemoryRepository>();
         return services;
     }
 

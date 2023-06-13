@@ -49,17 +49,16 @@ public sealed class Menu : AggregateRoot<MenuId>
         HostId hostId,
         string name,
         string description,
-        AverageRating averageRating,
         List<MenuSection>? sections = null)
     {
+        // TODO: enforce invariants
         return new Menu(
             MenuId.CreateUnique(),
             hostId,
             name,
             description,
-            averageRating,
-            sections ?? new()
-        );
+            AverageRating.CreateNew(),
+            sections ?? new());
     }
 
 

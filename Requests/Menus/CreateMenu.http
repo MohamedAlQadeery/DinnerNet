@@ -1,0 +1,24 @@
+@host=http://localhost:5159
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OGY1OTM5Zi00MTUxLTRmYmQtODI0Ny0yOWM3YWEwNjdlOGEiLCJnaXZlbl9uYW1lIjoibW9oYW1lZCIsImZhbWlseV9uYW1lIjoiYWxxYWRlZXJ5IiwianRpIjoiNjZmZmMxNTEtNTEwMy00ZTQ5LTk5MjctYjkzZDgwZTM5ZmIxIiwiZXhwIjoxNjg2NjY4NjU2LCJpc3MiOiIgRGlubmVyIiwiYXVkIjoiRGlubmVyIn0.v48t4Pp7vglkD4kfCmWacy76EsgXJ4cL4HRYTdva3tI
+@hostId=123
+
+POST  {{host}}/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "First Good Menu",
+    "description": "A menu with yummy food",
+    "sections": [
+        {
+            "name": "Appetizers",
+            "description": "Starters",
+            "items": [
+                {
+                    "name": "Fried Pickles",
+                    "description": "Deep fried pickles"
+                }
+            ]
+        }
+    ]
+}
