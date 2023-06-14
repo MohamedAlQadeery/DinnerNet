@@ -8,7 +8,7 @@ using DinnerNet.Domain.MenuAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.DinnerAggregate;
 
-public sealed class Dinner : AggregateRoot<DinnerId>
+public sealed class Dinner : AggregateRoot<DinnerId, Guid>
 {
     private readonly List<Reservation> _reservations = new();
     public string Name { get; }

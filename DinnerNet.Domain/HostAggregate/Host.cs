@@ -7,7 +7,7 @@ using DinnerNet.Domain.UserAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.HostAggregate;
 
-public class Host : AggregateRoot<HostId>
+public class Host : AggregateRoot<HostId, string>
 {
 
     private readonly List<MenuId> _menuIds = new();

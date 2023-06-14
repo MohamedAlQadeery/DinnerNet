@@ -3,9 +3,9 @@ using DinnerNet.Domain.UserAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.HostAggregate.ValueObjects;
 
-public sealed class HostId : ValueObject
+public sealed class HostId : AggregateRootId<string>
 {
-    public string Value { get; }
+    public override string Value { get; protected set; }
 
     public HostId(UserId userId)
     {

@@ -4,9 +4,9 @@ using DinnerNet.Domain.GuestAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.BillAggregate.ValueObjects;
 
-public sealed class BillId : ValueObject
+public sealed class BillId : AggregateRootId<string>
 {
-    public string Value { get; }
+    public override string Value { get; protected set; }
 
 
     private BillId(DinnerId dinnerId, GuestId guestId)

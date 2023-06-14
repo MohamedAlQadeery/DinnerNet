@@ -1,9 +1,9 @@
 using DinnerNet.Domain.Common.Models;
 namespace DinnerNet.Domain.DinnerAggregate.ValueObjects;
 
-public sealed class DinnerId : ValueObject
+public sealed class DinnerId : AggregateRootId<Guid>
 {
-    public Guid Value { get; }
+    public override Guid Value { get; protected set; }
 
     private DinnerId(Guid value)
     {

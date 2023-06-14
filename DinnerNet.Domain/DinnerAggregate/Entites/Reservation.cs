@@ -6,7 +6,7 @@ using DinnerNet.Domain.GuestAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.DinnerAggregate.Entites;
 
-public sealed class Reservation : AggregateRoot<ReservationId>
+public sealed class Reservation : Entity<ReservationId>
 {
     public DinnerId DinnerId { get; }
 
