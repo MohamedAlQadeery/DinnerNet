@@ -5,6 +5,7 @@ using DinnerNet.Application.Common.Interfaces.Repositories;
 using DinnerNet.Infrastructure.Authentication;
 using DinnerNet.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,11 @@ public static class DependancyInjection
            this IServiceCollection services,
            ConfigurationManager configuration)
     {
+        services.AddDbContext<DinnerDbContext>(opt =>
+        {
+
+            opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        });
         services.AddAuth(configuration);
         services.AddRepositories();
 
@@ -29,8 +35,9 @@ public static class DependancyInjection
 
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
+
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IMenuRepository, MenuInMemoryRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
         return services;
     }
 

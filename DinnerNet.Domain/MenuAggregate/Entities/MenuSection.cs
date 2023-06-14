@@ -8,8 +8,8 @@ public sealed class MenuSection : Entity<MenuSectionId>
     private readonly List<MenuItem> _items = new();
 
 
-    public string Name { get; }
-    public string Description { get; }
+    public string Name { get; private set; }
+    public string Description { get; private set; }
 
     public IReadOnlyList<MenuItem> Items => _items.AsReadOnly();
 
@@ -31,4 +31,12 @@ public sealed class MenuSection : Entity<MenuSectionId>
                                MenuSectionId.CreateUnique());
     }
 
+
+#pragma warning disable CS8618
+
+    private MenuSection()
+    {
+    }
+
+#pragma warning restore CS8618
 }
