@@ -2,6 +2,7 @@ using DinnerNet.Domain.Common.Models;
 using DinnerNet.Domain.Common.ValueObjects;
 using DinnerNet.Domain.DinnerAggregate.Entites;
 using DinnerNet.Domain.DinnerAggregate.Enums;
+using DinnerNet.Domain.DinnerAggregate.Events;
 using DinnerNet.Domain.DinnerAggregate.ValueObjects;
 using DinnerNet.Domain.HostAggregate.ValueObjects;
 using DinnerNet.Domain.MenuAggregate.ValueObjects;
@@ -96,6 +97,8 @@ public sealed class Dinner : AggregateRoot<DinnerId, Guid>
             imageUrl,
             location);
 
+
+        dinner.AddDomainEvent(new DinnerCreated(dinner));
 
         return dinner;
     }
