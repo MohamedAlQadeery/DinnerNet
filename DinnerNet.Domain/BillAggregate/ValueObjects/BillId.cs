@@ -6,17 +6,16 @@ namespace DinnerNet.Domain.BillAggregate.ValueObjects;
 
 public sealed class BillId : AggregateRootId<string>
 {
-    public override string Value { get; protected set; }
 
 
-    private BillId(DinnerId dinnerId, GuestId guestId)
+    private BillId(DinnerId dinnerId, GuestId guestId) : base($"Bill_{dinnerId.Value}_{guestId.Value}")
     {
-        Value = $"Bill_{dinnerId.Value}_{guestId.Value}";
+
     }
 
-    private BillId(string value)
+    private BillId(string value) : base(value)
     {
-        Value = value;
+
     }
 
 
@@ -30,8 +29,5 @@ public sealed class BillId : AggregateRootId<string>
         return new BillId(value);
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+
 }

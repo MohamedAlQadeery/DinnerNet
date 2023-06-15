@@ -8,29 +8,26 @@ namespace DinnerNet.Domain.DinnerAggregate.Entites;
 
 public sealed class Reservation : Entity<ReservationId>
 {
-    public DinnerId DinnerId { get; }
 
-    public int GuestCount { get; }
-    public DateTime ReservationDateTime { get; }
-    public ReservationStatus Status { get; }
+    public int GuestCount { get; private set; }
+    public DateTime ReservationDateTime { get; private set; }
+    public ReservationStatus Status { get; private set; }
 
-    public GuestId GuestId { get; }
-    public BillId BillId { get; }
-    public DateTime? ArrivalDateTime { get; }
+    public GuestId GuestId { get; private set; }
+    public BillId BillId { get; private set; }
+    public DateTime? ArrivalDateTime { get; private set; }
 
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Reservation(
-        DinnerId dinnerId,
-        GuestId guestId,
-        int guestCount,
-        DateTime? arrivalDateTime,
-        BillId? billId,
-        ReservationStatus status)
-        : base(ReservationId.Create(dinnerId, guestId))
+         GuestId guestId,
+         int guestCount,
+         DateTime? arrivalDateTime,
+         BillId? billId,
+         ReservationStatus status)
+         : base(ReservationId.CreateUnique())
     {
-        DinnerId = dinnerId;
         GuestId = guestId;
         GuestCount = guestCount;
         ArrivalDateTime = arrivalDateTime;
@@ -39,7 +36,6 @@ public sealed class Reservation : Entity<ReservationId>
     }
 
     public static Reservation Create(
-        DinnerId dinnerId,
         GuestId guestId,
         int guestCount,
         ReservationStatus status,
@@ -48,7 +44,6 @@ public sealed class Reservation : Entity<ReservationId>
     {
         // TODO: Enforce invariants
         return new Reservation(
-            dinnerId,
             guestId,
             guestCount,
             arrivalDateTime,
@@ -56,4 +51,9 @@ public sealed class Reservation : Entity<ReservationId>
             status);
     }
 
+#pragma warning disable CS8618
+    private Reservation()
+    {
+    }
+#pragma warning restore CS8618
 }

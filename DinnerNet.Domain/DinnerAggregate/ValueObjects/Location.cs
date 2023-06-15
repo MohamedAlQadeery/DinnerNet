@@ -2,12 +2,12 @@ using DinnerNet.Domain.Common.Models;
 
 namespace DinnerNet.Domain.DinnerAggregate.ValueObjects;
 
-public sealed class Location : ValueObject
+public class Location : ValueObject
 {
-    public string Name { get; }
-    public string Address { get; }
-    public double Latitude { get; }
-    public double Longitude { get; }
+    public string Name { get; private set; }
+    public string Address { get; private set; }
+    public double Latitude { get; private set; }
+    public double Longitude { get; private set; }
 
     private Location(string name, string address, double latitude, double longitude)
     {
@@ -27,6 +27,9 @@ public sealed class Location : ValueObject
         return new Location(name, address, latitude, longitude);
     }
 
+
+
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Name;
@@ -34,4 +37,13 @@ public sealed class Location : ValueObject
         yield return Latitude;
         yield return Longitude;
     }
+
+
+
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+
+    private Location() { }
+
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+
 }

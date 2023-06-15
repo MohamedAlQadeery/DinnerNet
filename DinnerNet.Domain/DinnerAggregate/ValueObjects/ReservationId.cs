@@ -1,36 +1,26 @@
 using DinnerNet.Domain.BillAggregate.ValueObjects;
 using DinnerNet.Domain.Common.Models;
+using DinnerNet.Domain.Common.Models.Identities;
 using DinnerNet.Domain.GuestAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.DinnerAggregate.ValueObjects;
 
-public sealed class ReservationId : ValueObject
+public sealed class ReservationId : EntityId<Guid>
 {
-    public string Value { get; }
 
 
-    private ReservationId(DinnerId dinnerId, GuestId guestId)
+    private ReservationId(Guid value) : base(value)
     {
-        Value = $"Reservation_{dinnerId.Value}_{guestId.Value}";
     }
 
-    private ReservationId(string value)
+
+    public static ReservationId CreateUnique()
     {
-        Value = value;
+        return new ReservationId(Guid.NewGuid());
     }
 
-    public static ReservationId Create(DinnerId dinnerId, GuestId guestId)
-    {
-        return new ReservationId(dinnerId, guestId);
-    }
-
-    public static ReservationId Create(string value)
+    public static ReservationId Create(Guid value)
     {
         return new ReservationId(value);
-    }
-
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
     }
 }

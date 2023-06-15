@@ -1,22 +1,21 @@
 using DinnerNet.Domain.Common.Models;
+using DinnerNet.Domain.Common.Models.Identities;
 using DinnerNet.Domain.DinnerAggregate.ValueObjects;
 using DinnerNet.Domain.HostAggregate.ValueObjects;
 
 namespace DinnerNet.Domain.GuestAggregate.ValueObjects;
 
-public sealed class GuestRatingId : ValueObject
+public sealed class GuestRatingId : EntityId<string>
 {
-    public string Value { get; set; }
 
 
-    private GuestRatingId(HostId hostId, DinnerId dinnerId)
+    private GuestRatingId(HostId hostId, DinnerId dinnerId) : base($"GuestRating_{hostId.Value}_{dinnerId.Value}")
     {
-        Value = $"GuestRating_{hostId.Value}_{dinnerId.Value}";
+
     }
 
-    private GuestRatingId(string value)
+    private GuestRatingId(string value) : base(value)
     {
-        Value = value;
     }
 
 
@@ -30,8 +29,5 @@ public sealed class GuestRatingId : ValueObject
         return new GuestRatingId(value);
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+
 }

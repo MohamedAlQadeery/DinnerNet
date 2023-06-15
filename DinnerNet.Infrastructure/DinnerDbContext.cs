@@ -1,3 +1,4 @@
+using DinnerNet.Domain.DinnerAggregate;
 using DinnerNet.Domain.MenuAggregate;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,4 +20,6 @@ public class DinnerDbContext : DbContext
     }
 
     public DbSet<Menu> Menus { get; set; } = null!;
+    public DbSet<Dinner> Dinners { get; set; } = null!;
+
 }

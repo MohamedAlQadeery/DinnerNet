@@ -1,14 +1,15 @@
 using DinnerNet.Domain.Common.Models;
+using DinnerNet.Domain.Common.Models.Identities;
+
 namespace DinnerNet.Domain.MenuAggregate.ValueObjects;
 
 
-public sealed class MenuSectionId : ValueObject
+public sealed class MenuSectionId : EntityId<Guid>
 {
-    public Guid Value { get; set; }
 
-    private MenuSectionId(Guid value)
+    private MenuSectionId(Guid value) : base(value)
     {
-        Value = value;
+
     }
 
     public static MenuSectionId CreateUnique()
@@ -21,8 +22,5 @@ public sealed class MenuSectionId : ValueObject
         // TODO: enforce invariants
         return new MenuSectionId(value);
     }
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+
 }

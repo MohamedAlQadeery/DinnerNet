@@ -4,11 +4,10 @@ namespace DinnerNet.Domain.MenuAggregate.ValueObjects;
 
 public sealed class MenuId : AggregateRootId<Guid>
 {
-    public override Guid Value { get; protected set; }
 
-    private MenuId(Guid value)
+    private MenuId(Guid value) : base(value)
     {
-        Value = value;
+
     }
 
     public static MenuId CreateUnique()
@@ -21,8 +20,5 @@ public sealed class MenuId : AggregateRootId<Guid>
         // TODO: enforce invariants
         return new MenuId(value);
     }
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+
 }

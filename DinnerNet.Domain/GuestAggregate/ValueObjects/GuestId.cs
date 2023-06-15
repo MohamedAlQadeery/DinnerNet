@@ -5,16 +5,13 @@ namespace DinnerNet.Domain.GuestAggregate.ValueObjects;
 
 public sealed class GuestId : AggregateRootId<string>
 {
-    public override string Value { get; protected set; }
 
-    public GuestId(UserId userId)
+    public GuestId(UserId userId) : base($"Guest_{userId.Value}")
     {
-        Value = $"Guest_{userId.Value}";
     }
 
-    public GuestId(string userId)
+    public GuestId(string userId) : base(userId)
     {
-        Value = userId;
     }
 
     public static GuestId Create(UserId userId)
@@ -27,8 +24,5 @@ public sealed class GuestId : AggregateRootId<string>
         return new GuestId(userId);
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+
 }

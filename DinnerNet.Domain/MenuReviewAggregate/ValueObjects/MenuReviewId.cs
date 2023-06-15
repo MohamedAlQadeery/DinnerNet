@@ -7,17 +7,17 @@ namespace DinnerNet.Domain.MenuReviewAggregate.ValueObjects;
 
 public sealed class MenuReviewId : AggregateRootId<string>
 {
-    public override string Value { get; protected set; }
 
 
-    private MenuReviewId(MenuId menuId, DinnerId dinnerId, GuestId guestId)
+    private MenuReviewId(MenuId menuId, DinnerId dinnerId, GuestId guestId) :
+     base($"MenuReview_{menuId.Value}_{dinnerId.Value}_{guestId.Value}")
     {
-        Value = $"MenuReview_{menuId.Value}_{dinnerId.Value}_{guestId.Value}";
+
     }
 
-    private MenuReviewId(string value)
+    private MenuReviewId(string value) : base(value)
     {
-        Value = value;
+
     }
 
     public static MenuReviewId Create(MenuId menuId, DinnerId dinnerId, GuestId guestId)
@@ -32,8 +32,5 @@ public sealed class MenuReviewId : AggregateRootId<string>
         return new MenuReviewId(value);
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+
 }

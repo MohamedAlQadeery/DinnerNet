@@ -24,4 +24,12 @@ public sealed class Price : ValueObject
         yield return Value;
         yield return Currency;
     }
+
+
+
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+
+    private Price() { }
+
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 }
