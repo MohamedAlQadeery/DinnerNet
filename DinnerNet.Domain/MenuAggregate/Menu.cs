@@ -62,6 +62,12 @@ public sealed class Menu : AggregateRoot<MenuId, Guid>
             sections ?? new());
     }
 
+    public void AddDinnerId(DinnerId dinnerId)
+    {
+        _dinnerIds.Add(dinnerId);
+    }
+
+
 #pragma warning disable CS8618
     private Menu()
     {

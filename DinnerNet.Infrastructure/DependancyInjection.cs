@@ -3,6 +3,7 @@ using System.Text;
 using DinnerNet.Application.Common.Interfaces.Authentication;
 using DinnerNet.Application.Common.Interfaces.Repositories;
 using DinnerNet.Infrastructure.Authentication;
+using DinnerNet.Infrastructure.Interceptors;
 using DinnerNet.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -36,8 +37,11 @@ public static class DependancyInjection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
 
+        services.AddScoped<PublishDomainEventInterceptor>();
+
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
+        services.AddScoped<IDinnerRepository, DinnerRepository>();
         return services;
     }
 
